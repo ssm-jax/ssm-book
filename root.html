@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Bibliography &#8212; State Space Models: A Modern Approach</title>
+    <title>State Space Models: A Modern Approach &#8212; State Space Models: A Modern Approach</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -56,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Linear-Gaussian SSMs" href="chapters/lgssm-chap.html" />
+    <link rel="next" title="Introduction" href="chapters/intro-chap.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -89,13 +89,13 @@ const thebe_selector_output = ".output, .cell_output"
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="root.html">
+ <li class="toctree-l1 current">
+  <a class="reference internal" href="#">
    State Space Models: A Modern Approach
   </a>
  </li>
 </ul>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="chapters/intro-chap.html">
    Introduction
@@ -128,8 +128,8 @@ const thebe_selector_output = ".output, .cell_output"
    Linear-Gaussian SSMs
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="bib.html">
    My Bibliography
   </a>
  </li>
@@ -174,7 +174,7 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/bib.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/root.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -194,7 +194,7 @@ const thebe_selector_output = ".output, .cell_output"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fbib.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Froot.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -222,7 +222,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>My Bibliography</h1>
+                <h1>State Space Models: A Modern Approach</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -233,17 +233,24 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="my-bibliography">
-<h1>My Bibliography<a class="headerlink" href="#my-bibliography" title="Permalink to this headline">¶</a></h1>
-<p id="id1"><dl class="citation">
-<dt class="label" id="id4"><span class="brackets">DEKM98</span></dt>
-<dd><p>R. Durbin, S. Eddy, A. Krogh, and G. Mitchison. <em>Biological Sequence Analysis: Probabilistic Models of Proteins and Nucleic Acids</em>. Cambridge University Press, 1998.</p>
-</dd>
-<dt class="label" id="id2"><span class="brackets">Sar13</span></dt>
-<dd><p>Simo Sarkka. <em>Bayesian Filtering and Smoothing</em>. Cambridge University Press, 2013. URL: <a class="reference external" href="https://users.aalto.fi/~ssarkka/pub/cup_book_online_20131111.pdf">https://users.aalto.fi/~ssarkka/pub/cup_book_online_20131111.pdf</a>.</p>
-</dd>
-</dl>
-</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="state-space-models-a-modern-approach">
+<h1>State Space Models: A Modern Approach<a class="headerlink" href="#state-space-models-a-modern-approach" title="Permalink to this headline">¶</a></h1>
+<p>This is an interactive textbook on state space models (SSM)
+using the <a class="reference external" href="https://github.com/google/jax">JAX Python library</a>.
+Some of the content is based on the 2013 book
+<a class="reference external" href="https://users.aalto.fi/~ssarkka/pub/cup_book_online_20131111.pdf">Bayesian Filtering and Smoothing</a>
+by Simo Sarkka.
+However, we also cover more “modern” material, exploiting recent progress
+in automatic differentiation and parallel computing.</p>
+<p>Last update: 2022-03-22</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapters/intro-chap.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/hmm-chap.html">Hidden Markov Models (HMM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/lgssm-chap.html">Linear-Gaussian SSMs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">My Bibliography</a></li>
+</ul>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -270,13 +277,13 @@ const thebe_selector_output = ".output, .cell_output"
               
             
                 <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="chapters/lgssm-chap.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Linear-Gaussian SSMs</p>
-        </div>
+<div class='prev-next-area'>
+    <a class='right-next' id="next-link" href="chapters/intro-chap.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Introduction</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             

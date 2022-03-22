@@ -1,0 +1,3 @@
+# Linear-Gaussian SSMs
+
+LG-SSM, aka LDS, are a workhorse...

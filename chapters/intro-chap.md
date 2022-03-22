@@ -13,11 +13,17 @@ kernelspec:
   name: python3
 ---
 
-# Kevin's noodling
+# Introduction
+
+
+
 
 In this chapter, we do blah.
-For more details, see  [](sec:bar), where we discuss bar.
+For more details, see  [](ch:hmm)
+and  {cite}`Sarkka13`.
 
+
+## What are state space models?
 
 ## Python
 
@@ -71,8 +77,4 @@ $$
 0 &= a x^2 + bx+ c 
 \end{align}
 $$
-
-## Refs
-
-For more details, see {cite}`holdgraf_evidence_2014` and foo.
 

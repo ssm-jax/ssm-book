@@ -1,56 +1,177 @@
+
 ---
 ---
 
-@inproceedings{holdgraf_evidence_2014,
-	address = {Brisbane, Australia, Australia},
-	title = {Evidence for {Predictive} {Coding} in {Human} {Auditory} {Cortex}},
-	booktitle = {International {Conference} on {Cognitive} {Neuroscience}},
-	publisher = {Frontiers in Neuroscience},
-	author = {Holdgraf, Christopher Ramsay and de Heer, Wendy and Pasley, Brian N. and Knight, Robert T.},
-	year = {2014}
+%@string{aij = "Artificial Intelligence J."}
+@string{aij = "AIJ"}
+%@string{acl = "Proc. Assoc. Comp. Ling. {(ACL)}"}
+@string{acl = "Proc. ACL"}
+@string{acml = "Proc. Asian Conf. on ML"}
+%@string{aaai = "Proc. Conf. Am. Assoc. {AI} ({AAAI})"}
+@string{aaai = {{AAAI}}}
+%@string{acc = "Proc. Am. Control Conf. ({ACC})"}
+@string{acc = "ACC"}
+%@string{aistats = "Conf. on {AI} and Statistics {(AISTATS)}"}
+@string{aistats = "AISTATS"}
+%@string{akbc = "Workshop on Automatic Knowledge base Construction"}
+@string{akbc = "AKBC Workshop"}
+@string{arxiv = "ArXiv"}
+@string{ba = "Bayesian Analysis"}
+%@string{bmb = "Bulletin of Mathematical Biology"}
+@string{bmb = "Bulletin of Math. Bio."}
+%@string{bmvc = "British Machine Vision Conference"}
+@string{bmvc = "BMVC"}
+@string{cabios = "Computer Applications in the Biological Sciences"}
+@string{cacm = "Comm. of the {ACM}"}
+%@string{chi = {Proc. ACM Conf. on Human Factors in Computing Systems (CHI)}}
+@string{chi = "Proc. CHI"}
+@string{cikm = "CIKM"}
+%@string{coling = "Intl. Conf. on Comp. Linguistics"}
+@string{coling = "COLING"}
+%@string{colt = "Proc. of the Workshop on Computational Learning Theory"}
+@string{colt = "COLT"}
+%@string{conll = "Proc. Conf. Natural Language Learning (CoNLL)"}
+@string{conll = "CONLL"}
+%@string{corl = "Conf. on Robot Learning"}
+@string{corl = "CORL"}
+%@string{cvpr = "Proc. {IEEE} Conf. Computer Vision and Pattern Recognition {(CVPR)}"}
+@string{cvpr = "CVPR"}
+@string{cpm = "Symposium on Combinatorial Pattern Matching"}
+%@string{eccv = "Proc. European Conf. on Computer Vision {(ECCV)}"}
+@string{eccv = "ECCV"}
+%@string{ecml = "Proc. European Conf. on Machine Learning {(ECML)}"}
+@string{ecml = "ECML"}
+%@string{emnlp = "Proc. Empirical Methods in Natural Language Processing {(EMNLP)}"}
+@string{emnlp = "EMNLP"}
+%@string{focs = "{IEEE} Symposium on the Foundations of Computer Science ({FOCS})"}
+@string{focs = "FOCS"}
+@string{gecco = "Proc. of the Conf.  on Genetic and Evolutionary Computation"}
+@string{hicss = "Hawaii Intl. Conf. on System Sciences"}
+%@string{icann = "Intl. Conf. on Artif.  Neural Networks"}
+@string{icann = "ICANN"}
+%@string{icassp = "Intl. Conf. on Acoustics, Speech and Signal Proc."}
+@string{icassp = "ICASSP"}
+%@string{iccv = "Intl. Conf. on Computer Vision"}
+@string{iccv = "ICCV"}
+%@string{icdar = "Intl. Conf. on Document Analysis and Recognition ({ICDAR})"}
+@string{icdar = "ICDAR"}
+%@string{icde = "Intl. Conf. on Data Engineering"}
+@string{icde = "ICDE"}
+@string{icdm = "Intl. Conf. on Data Mining"}
+@string{icdm = "ICDM"}
+%@string{icirs = "{IEEE} Intl. Conf. on Intelligent Robots and Systems"}
+@string{icirs = "ICIRS"}
+%@string{icip = "Proc. {IEEE} Intl. Conf. on Image Processing"}
+@string{icip = "ICIP"}
+%@string{iclr = "Intl. Conf. on Learning Representations ({ICLR})"}
+@string{iclr = {{ICLR}}}
+%@string{icml = "Intl. Conf. on Machine Learning ({ICML})"}
+@string{icml = {{ICML}}}
+%@string{icnn = "Proc. {IEEE} Intl. Conf. on Neural Networks"}
+@string{icnn = "ICNN"}
+%@string{icpr = "Intl. Conf. on Pattern Rec."}
+@string{icpr = "ICPR"}
+%@string{icra = "IEEE Intl. Conf. on Robotics and Automation"}
+@string{icra = "ICRA"}
+%@string{icslp = "Proc. Intl. Conf. Spoken Lang."}
+@string{icslp = "ICSLP"}
+%@string{ijcai = "Intl. Joint Conf. on {AI}"}
+@string{ijcai = "IJCAI"}
+%@string{ijcv = "Intl. J. Computer Vision"}
+@string{icjv = "IJCV"}
+%@string{ijcnn = "Intl. J. Conf. on Neural Networks"}
+@string{ijcnn = "IJCNN"}
+%@string{iros = "{IEEE} Intl. Conf. on Intelligent Robots and Systems"}
+@string{iros = "IROS"}
+%@string{ismb = "Intl. Conf. on Intelligent Systems for Molecular Biology"}
+@string{ismb = "ISMB"}
+%@string{iswc = "Intl. Semantic Web Conference"}
+@string{iswc = "ISWC"}
+@string{jacm = "JACM"}
+%@string{jair = "J. of AI Research"}
+@string{jair = "JAIR"}
+%@string{jasa = "J. of the Am. Stat. Assoc. {(JASA)}"}
+@string{jasa = "JASA"}
+%@string{jcgs = "J. of Computational and Graphical Statistics"}
+@string{jcgs = "JCGS"}
+@string{jcss = "J. of Comp. and Sys. Sci."}
+@string{jmb = "J. of Mol. Bio."}
+@string{jme = "J. of Mol. Evol."}
+%@string{jmlr = "J. of Machine Learning Research"}
+@string{jmlr = "JMLR"}
+%@string{jrssa = "JRSSA"}
+@string{jrssa = "J. of Royal Stat. Soc. Series A"}
+@string{jrssb = "J. of Royal Stat. Soc. Series B"}
+@string{jrssc = "J. of Royal Stat. Soc. Series C"}
+@string{jtb = "J. of Theoretical Biology"}
+%@string{kdd = "Proc. of the Int'l Conf. on Knowledge Discovery and Data Mining"}
+@string{kdd = {{KDD}}}
+@string{mlj = "Machine Learning J."}
+@string{mlj = "MLJ"}
+%@string{naacl = "Proc. of. N. Am. Assoc. of Comp. Ling. ({NAACL})"}
+%@string{naacl = "NAACL"}
+@string{nar = "Proc. of. Nucleic Acids Research"}
+@string{NIPS = {{NIPS}}}
+@string{neurips = {{NeurIPS}}}
+%@string{pami = "{IEEE} Trans. on Pattern Analysis and Machine Intelligence"}
+@string{pami = "{IEEE} PAMI"}
+%@string{pnas = "Proc. of the National Academy of Science, {USA}"}
+@string{pnas = "PNAS"}
+%@string{psb = "Proc. of the Pacific Symp. on Biocomputing"}
+@string{psb = "PSB"}
+@string{recomb = "RECOMB"}
+%@string{rss = "Robotics: Science and Systems conference"}
+@string{recsys = {{RecSys}}}
+@string{rss = "RSS"}
+%@string{sab = "Proc. of the Conf. on Simulation of Adaptive Behavior"}
+@string{sab = "SAB"}
+%@string{sigir = "{Proc.  Annual Intl.  ACM SIGIR Conference}"}
+@string{sigir = "SIGIR"}
+@string{sigmod = "SIGMOD"}
+%@string{smc = "IEEE Trans. on Systems, Man and Cybernetics"}
+@string{smc = "SMC"}
+%@string{soda = "{SIAM} Symposium on Discrete Algorithms"}
+@string{soda = "SODA"}
+@string{spie = "SPIE"}
+%@string{stoc = "{ACM} Symposium on the Theory of Computing"}
+@string{stoc = "STOC"}
+%@string{tacl = "Trans. of the Assoc. Comp. Linguisitics"}
+@string{tacl = "TACL"}
+%@string{tcs = "Theor. Comput. Sci."}
+@string{tcs = "TCS"}
+%@string{uai = "Proc. of the Conf. on Uncertainty in {AI} (UAI)"}
+@string{uai = {{UAI}}}
+%@string{vldb = "Proc. of the Intl. Conf. on Very Large Data Bases (VLDB)"}
+@string{vldb = "VLDB"}
+%@string{wacv = "Winter Conf. on Appl. of Comp. Vision"}
+@string{wacv = "WACV"}
+%@string{www = {{Intl. Conf. on the World Wide Web (WWW)}}}
+@string{www = {{WWW}}}
+%@string{wsdm = {{Proc. ACM intl. conf. on Web search and data mining (WSDM)}}}
+@string{wsdm = "WSDM"}
+
+@book{Sarkka13,
+title = {{Bayesian Filtering and Smoothing}},
+ author = "Simo Sarkka",
+publisher = "Cambridge University Press",
+ year = 2013,
+ url = {https://users.aalto.fi/~ssarkka/pub/cup_book_online_20131111.pdf}
 }
 
-@article{holdgraf_rapid_2016,
-	title = {Rapid tuning shifts in human auditory cortex enhance speech intelligibility},
-	volume = {7},
-	issn = {2041-1723},
-	url = {http://www.nature.com/doifinder/10.1038/ncomms13654},
-	doi = {10.1038/ncomms13654},
-	number = {May},
-	journal = {Nature Communications},
-	author = {Holdgraf, Christopher Ramsay and de Heer, Wendy and Pasley, Brian N. and Rieger, Jochem W. and Crone, Nathan and Lin, Jack J. and Knight, Robert T. and Theunissen, Frédéric E.},
-	year = {2016},
-	pages = {13654},
-	file = {Holdgraf et al. - 2016 - Rapid tuning shifts in human auditory cortex enhance speech intelligibility.pdf:C\:\\Users\\chold\\Zotero\\storage\\MDQP3JWE\\Holdgraf et al. - 2016 - Rapid tuning shifts in human auditory cortex enhance speech intelligibility.pdf:application/pdf}
+@BOOK{Durbin2012,
+  title     = "Time Series Analysis by State Space Methods: Second Edition",
+  author    = "Durbin, James and Koopman, Siem Jan",
+  publisher = "Oxford University Press",
+  edition   = "Revised ed. edition",
+  month     =  jul,
+  year      =  2012,
+  url       = "https://www.amazon.com/Time-Analysis-State-Space-Methods/dp/019964117X",
+  language  = "en"
 }
 
-@inproceedings{holdgraf_portable_2017,
-	title = {Portable learning environments for hands-on computational instruction using container-and cloud-based technology to teach data science},
-	volume = {Part F1287},
-	isbn = {978-1-4503-5272-7},
-	doi = {10.1145/3093338.3093370},
-	abstract = {© 2017 ACM. There is an increasing interest in learning outside of the traditional classroom setting. This is especially true for topics covering computational tools and data science, as both are challenging to incorporate in the standard curriculum. These atypical learning environments offer new opportunities for teaching, particularly when it comes to combining conceptual knowledge with hands-on experience/expertise with methods and skills. Advances in cloud computing and containerized environments provide an attractive opportunity to improve the effciency and ease with which students can learn. This manuscript details recent advances towards using commonly-Available cloud computing services and advanced cyberinfrastructure support for improving the learning experience in bootcamp-style events. We cover the benets (and challenges) of using a server hosted remotely instead of relying on student laptops, discuss the technology that was used in order to make this possible, and give suggestions for how others could implement and improve upon this model for pedagogy and reproducibility.},
-	booktitle = {{ACM} {International} {Conference} {Proceeding} {Series}},
-	author = {Holdgraf, Christopher Ramsay and Culich, A. and Rokem, A. and Deniz, F. and Alegro, M. and Ushizima, D.},
-	year = {2017},
-	keywords = {Teaching, Bootcamps, Cloud computing, Data science, Docker, Pedagogy}
-}
-
-@article{holdgraf_encoding_2017,
-	title = {Encoding and decoding models in cognitive electrophysiology},
-	volume = {11},
-	issn = {16625137},
-	doi = {10.3389/fnsys.2017.00061},
-	abstract = {© 2017 Holdgraf, Rieger, Micheli, Martin, Knight and Theunissen. Cognitive neuroscience has seen rapid growth in the size and complexity of data recorded from the human brain as well as in the computational tools available to analyze this data. This data explosion has resulted in an increased use of multivariate, model-based methods for asking neuroscience questions, allowing scientists to investigate multiple hypotheses with a single dataset, to use complex, time-varying stimuli, and to study the human brain under more naturalistic conditions. These tools come in the form of “Encoding” models, in which stimulus features are used to model brain activity, and “Decoding” models, in which neural features are used to generated a stimulus output. Here we review the current state of encoding and decoding models in cognitive electrophysiology and provide a practical guide toward conducting experiments and analyses in this emerging field. Our examples focus on using linear models in the study of human language and audition. We show how to calculate auditory receptive fields from natural sounds as well as how to decode neural recordings to predict speech. The paper aims to be a useful tutorial to these approaches, and a practical introduction to using machine learning and applied statistics to build models of neural activity. The data analytic approaches we discuss may also be applied to other sensory modalities, motor systems, and cognitive systems, and we cover some examples in these areas. In addition, a collection of Jupyter notebooks is publicly available as a complement to the material covered in this paper, providing code examples and tutorials for predictive modeling in python. The aimis to provide a practical understanding of predictivemodeling of human brain data and to propose best-practices in conducting these analyses.},
-	journal = {Frontiers in Systems Neuroscience},
-	author = {Holdgraf, Christopher Ramsay and Rieger, J.W. and Micheli, C. and Martin, S. and Knight, R.T. and Theunissen, F.E.},
-	year = {2017},
-	keywords = {Decoding models, Encoding models, Electrocorticography (ECoG), Electrophysiology/evoked potentials, Machine learning applied to neuroscience, Natural stimuli, Predictive modeling, Tutorials}
-}
-
-@book{ruby,
-  title     = {The Ruby Programming Language},
-  author    = {Flanagan, David and Matsumoto, Yukihiro},
-  year      = {2008},
-  publisher = {O'Reilly Media}
+@book{Durbin98,
+ author = {R. Durbin and S. Eddy and A. Krogh and G. Mitchison},
+ title = {Biological Sequence Analysis: Probabilistic Models of Proteins and Nucleic Acids},
+  publisher = {Cambridge University Press},
+  year = "1998"
 }

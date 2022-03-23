@@ -72,10 +72,11 @@ print(jax.devices())
 # 
 # <!---
 # ![](https://myst-parser.readthedocs.io/en/latest/_static/logo-wide.svg)
-# --->
+# 
 # 
 # <img src="https://github.com/probml/probml-notebooks/blob/main/images/cat_dog.jpg"
 # style="height:200">
+# -->
 # 
 # ```{figure} /figures/cat_dog.jpg
 # :scale: 50%
@@ -105,6 +106,7 @@ print(jax.devices())
 # ```
 # 
 # From {eq}`foo`, it follows that
+# 
 # $$
 # \begin{align}
 # 0 &= a x^2 + bx+ c \\

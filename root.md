@@ -1,11 +1,15 @@
-# Welcome to your Jupyter Book
+# State Space Models: A Modern Approach
 
-This is a small sample book to give you a feel for how book content is
-structured.
-It shows off a few of the major file types, as well as some sample content.
-It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information.
+This is an interactive textbook on state space models (SSM)
+using the [JAX Python library](https://github.com/google/jax).
+Some of the content is based on the 2013 book
+[Bayesian Filtering and Smoothing](https://users.aalto.fi/~ssarkka/pub/cup_book_online_20131111.pdf)
+by Simo Sarkka.
+However, we also cover more "modern" material, exploiting recent progress
+in automatic differentiation and parallel computing.
 
-Check out the content pages bundled with this sample book to see more.
+Last update: 2022-03-22
+
 
 ```{tableofcontents}
 ```

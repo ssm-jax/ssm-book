@@ -266,11 +266,45 @@ const thebe_selector_output = ".output, .cell_output"
 <p>We start with a simple numpy implementation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">jax</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">jnp</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install necessary libraries</span>
 
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">jax</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="c1"># For cuda version, see https://github.com/google/jax#installation</span>
+    <span class="o">%</span><span class="k">pip</span> install --upgrade &quot;jax[cpu]&quot; 
+    <span class="kn">import</span> <span class="nn">jax</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">jsl</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install git+https://github.com/probml/jsl
+    <span class="kn">import</span> <span class="nn">jsl</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">abc</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">jax</span>
+<span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">jnp</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">print_source</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;source code of &#39;</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+    <span class="c1">#txt = inspect.getsource(fname)</span>
+    <span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">line_num</span><span class="p">)</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getsourcelines</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -278,22 +312,55 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">jsl</span>
+<span class="kn">import</span> <span class="nn">jsl.hmm.hmm_numpy_lib</span> <span class="k">as</span> <span class="nn">hmm_lib_np</span>
+<span class="c1">#import jsl.hmm.hmm_lib as hmm_lib_jax</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Here are some handy utility functions we have already defined.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-15</span><span class="p">):</span>
-    <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">u</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">u</span> <span class="o">&lt;</span> <span class="n">eps</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">u</span><span class="p">))</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">u</span> <span class="o">/</span> <span class="n">c</span><span class="p">,</span> <span class="n">c</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">normalize</span> <span class="o">=</span> <span class="n">hmm_lib_np</span><span class="o">.</span><span class="n">normalize_numpy</span>
+<span class="n">print_source</span><span class="p">(</span><span class="n">normalize</span><span class="p">)</span>
+<span class="c1">#print_source(hmm_lib_np.normalize_numpy)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>source code of  &lt;function normalize_numpy at 0x7fbf2893f0d0&gt;
+def normalize_numpy(u, axis=0, eps=1e-15):
+    &#39;&#39;&#39;
+    Normalizes the values within the axis in a way that they sum up to 1.
+
+    Parameters
+    ----------
+    u : array
+    axis : int
+    eps : float
+        Threshold for the alpha values
+
+    Returns
+    -------
+    * array
+        Normalized version of the given matrix
+
+    * array(seq_len, n_hidden) :
+        The values of the normalizer
+    &#39;&#39;&#39;
+    u = np.where(u == 0, 0, np.where(u &lt; eps, eps, u))
+    c = u.sum(axis=axis)
+    c = np.where(c == 0, 1, c)
+    return u / c, c
 </pre></div>
 </div>
 </div>
 </div>
 <p>We first create the “Ocassionally dishonest casino” model from <span id="id1">[<a class="reference internal" href="../../bib.html#id4" title="R. Durbin, S. Eddy, A. Krogh, and G. Mitchison. Biological Sequence Analysis: Probabilistic Models of Proteins and Nucleic Acids. Cambridge University Press, 1998.">DEKM98</a>]</span>.</p>
+<div class="figure align-default" id="casino">
+<a class="reference internal image-reference" href="../../_images/casino.png"><img alt="../../_images/casino.png" src="../../_images/casino.png" style="width: 208.5px; height: 142.5px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of the casino HMM.</span><a class="headerlink" href="#casino" title="Permalink to this image">¶</a></p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># state transition matrix</span>
@@ -309,6 +376,11 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="p">])</span>
 
 <span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+
+<span class="p">(</span><span class="n">nstates</span><span class="p">,</span> <span class="n">nobs</span><span class="p">)</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nstates</span><span class="p">):</span>
+    <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,:])[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,:])[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -316,23 +388,12 @@ const thebe_selector_output = ".output, .cell_output"
 <p>Let’s bundle the parameters into a structure.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">HMMNumpy</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">HMMNumpy</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
     <span class="n">trans_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span>  <span class="c1"># A : (n_states, n_states)</span>
     <span class="n">obs_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span>  <span class="c1"># B : (n_states, n_obs)</span>
     <span class="n">init_dist</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span>  <span class="c1"># pi : (n_states)</span>
         
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">nstates</span><span class="p">,</span> <span class="n">nobs</span><span class="p">)</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nstates</span><span class="p">):</span>
-    <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,:])[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,:])[</span><span class="mi">0</span><span class="p">]</span>
-    
+
 <span class="n">params_numpy</span> <span class="o">=</span> <span class="n">HMMNumpy</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">pi</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">params_numpy</span><span class="p">)</span>
 </pre></div>
@@ -351,62 +412,73 @@ const thebe_selector_output = ".output, .cell_output"
 <p>Function to sample a single sequence of hidden states and discrete observations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">hmm_sample_numpy</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="nf">sample_one_step_</span><span class="p">(</span><span class="n">hist</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-        <span class="n">x_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hist</span><span class="p">,</span> <span class="p">[</span><span class="n">x_t</span><span class="p">]),</span> <span class="n">x_t</span>
-
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
-
-    <span class="n">trans_mat</span><span class="p">,</span> <span class="n">obs_mat</span><span class="p">,</span> <span class="n">init_dist</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">trans_mat</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">obs_mat</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">init_dist</span>
-    <span class="n">n_states</span><span class="p">,</span> <span class="n">n_obs</span> <span class="o">=</span> <span class="n">obs_mat</span><span class="o">.</span><span class="n">shape</span>
-
-    <span class="n">state_seq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-    <span class="n">obs_seq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-
-    <span class="n">latent_states</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_states</span><span class="p">)</span>
-    <span class="n">obs_states</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_obs</span><span class="p">)</span>
-
-    <span class="n">state_seq</span><span class="p">,</span> <span class="n">zt</span> <span class="o">=</span> <span class="n">sample_one_step_</span><span class="p">(</span><span class="n">state_seq</span><span class="p">,</span> <span class="n">latent_states</span><span class="p">,</span> <span class="n">init_dist</span><span class="p">)</span>
-    <span class="n">obs_seq</span><span class="p">,</span> <span class="n">xt</span> <span class="o">=</span> <span class="n">sample_one_step_</span><span class="p">(</span><span class="n">obs_seq</span><span class="p">,</span> <span class="n">obs_states</span><span class="p">,</span> <span class="n">obs_mat</span><span class="p">[</span><span class="n">zt</span><span class="p">])</span>
-
-    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">):</span>
-        <span class="c1">#print(t, zt, trans_mat[zt])</span>
-        <span class="n">state_seq</span><span class="p">,</span> <span class="n">zt</span> <span class="o">=</span> <span class="n">sample_one_step_</span><span class="p">(</span><span class="n">state_seq</span><span class="p">,</span> <span class="n">latent_states</span><span class="p">,</span> <span class="n">trans_mat</span><span class="p">[</span><span class="n">zt</span><span class="p">])</span>
-        <span class="n">obs_seq</span><span class="p">,</span> <span class="n">xt</span> <span class="o">=</span> <span class="n">sample_one_step_</span><span class="p">(</span><span class="n">obs_seq</span><span class="p">,</span> <span class="n">obs_states</span><span class="p">,</span> <span class="n">obs_mat</span><span class="p">[</span><span class="n">zt</span><span class="p">])</span>
-
-    <span class="k">return</span> <span class="n">state_seq</span><span class="p">,</span> <span class="n">obs_seq</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_len</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="n">state_seq</span><span class="p">,</span> <span class="n">obs_seq</span> <span class="o">=</span> <span class="n">hmm_sample_numpy</span><span class="p">(</span><span class="n">params_numpy</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">state_seq</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">obs_seq</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hmm_sample</span> <span class="o">=</span> <span class="n">hmm_lib_np</span><span class="o">.</span><span class="n">hmm_sample_numpy</span>
+<span class="n">print_source</span><span class="p">(</span><span class="n">hmm_sample</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1 1 1 1 1 1 1 0 0 0 1 1 1 1 1 1 1 0 0 0]
-[5 5 5 5 3 5 5 0 4 5 5 5 5 5 4 5 5 3 3 4]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>source code of  &lt;function hmm_sample_numpy at 0x7fbf2a1ceee0&gt;
+def hmm_sample_numpy(params, seq_len, random_state=0):
+    &#39;&#39;&#39;
+    Samples an observation of given length according to the defined
+    hidden markov model and gives the sequence of the hidden states
+    as well as the observation.
+
+    Parameters
+    ----------
+    params : HMMNumpy
+        Hidden Markov Model
+
+    seq_len: array(seq_len)
+        The length of the observation sequence
+
+    random_state : int
+        Seed value
+
+    Returns
+    -------
+    * array(seq_len,)
+        Hidden state sequence
+
+    * array(seq_len,) :
+        Observation sequence
+    &#39;&#39;&#39;
+
+    def sample_one_step_(hist, a, p):
+        x_t = np.random.choice(a=a, p=p)
+        return np.append(hist, [x_t]), x_t
+
+    seed(random_state)
+
+    trans_mat, obs_mat, init_dist = params.trans_mat, params.obs_mat, params.init_dist
+    n_states, n_obs = obs_mat.shape
+
+    state_seq = np.array([], dtype=int)
+    obs_seq = np.array([], dtype=int)
+
+    latent_states = np.arange(n_states)
+    obs_states = np.arange(n_obs)
+
+    state_seq, zt = sample_one_step_(state_seq, latent_states, init_dist)
+    obs_seq, xt = sample_one_step_(obs_seq, obs_states, obs_mat[zt])
+
+    for _ in range(1, seq_len):
+        state_seq, zt = sample_one_step_(state_seq, latent_states, trans_mat[zt])
+        obs_seq, xt = sample_one_step_(obs_seq, obs_states, obs_mat[zt])
+
+    return state_seq, obs_seq
 </pre></div>
 </div>
 </div>
 </div>
+<p>Let’s sample from this model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#from jsl.hmm.hmm_numpy_lib import HMMNumpy, hmm_forwards_backwards_numpy, hmm_loglikelihood_numpy</span>
-<span class="kn">import</span> <span class="nn">jsl.hmm.hmm_numpy_lib</span> <span class="k">as</span> <span class="nn">hmm_np</span>
-
-<span class="n">state_seq</span><span class="p">,</span> <span class="n">obs_seq</span> <span class="o">=</span> <span class="n">hmm_np</span><span class="o">.</span><span class="n">hmm_sample_numpy</span><span class="p">(</span><span class="n">params_numpy</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_len</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">state_seq</span><span class="p">,</span> <span class="n">obs_seq</span> <span class="o">=</span> <span class="n">hmm_sample</span><span class="p">(</span><span class="n">params_numpy</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">state_seq</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">obs_seq</span><span class="p">)</span>
-
-    
 </pre></div>
 </div>
 </div>

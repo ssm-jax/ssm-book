@@ -56,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="HMMs index" href="hmm-chap/index.html" />
+    <link rel="next" title="Discrete SSMs (Hidden Markov Models)" href="hmm/index.html" />
     <link rel="prev" title="State Space Models: A Modern Approach" href="../root.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -103,8 +103,8 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="hmm-chap/index.html">
-   HMMs index
+  <a class="reference internal" href="hmm/index.html">
+   Discrete SSMs (Hidden Markov Models)
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
@@ -113,19 +113,24 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="hmm-chap/hmm-intro.html">
+    <a class="reference internal" href="hmm/intro.html">
      What are HMMs?
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="hmm-chap/casino.html">
+    <a class="reference internal" href="hmm/casino.html">
      The occasionally dishonest casino
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="hmm/hmm_discrete_numpy.html">
+     Implementing discrete HMMs in Numpy
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="lgssm-chap.html">
+  <a class="reference internal" href="lgssm.html">
    Linear-Gaussian SSMs
   </a>
  </li>
@@ -174,11 +179,11 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
         <a class="dropdown-buttons"
-            href="../_sources/chapters/intro-chap.ipynb"><button type="button"
+            href="../_sources/chapters/intro.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/chapters/intro-chap.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/chapters/intro.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -198,7 +203,7 @@ const thebe_selector_output = ".output, .cell_output"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/ssm-jax/ssm-book/issues/new?title=Issue%20on%20page%20%2Fchapters/intro-chap.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/ssm-jax/ssm-book/issues/new?title=Issue%20on%20page%20%2Fchapters/intro.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -219,7 +224,7 @@ const thebe_selector_output = ".output, .cell_output"
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/ssm-jax/ssm-book/main?urlpath=tree/chapters/intro-chap.md"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/ssm-jax/ssm-book/main?urlpath=tree/chapters/intro.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -319,10 +324,8 @@ Specifically</p>
 <li><p>bar.</p></li>
 <li><p>baz</p></li>
 </ul>
-<p>For more details, see <a class="reference internal" href="hmm-chap/index.html#ch-hmm"><span class="std std-ref">HMMs index</span></a>
-and <a class="reference internal" href="hmm-chap/index.html#ch-hmm"><span class="std std-ref">HMM chapter</span></a>
-and <a class="reference internal" href="hmm-chap/index.html#ch-hmm"><span class="std std-ref">HMMs index</span></a>
-and  <span id="id1">[<a class="reference internal" href="../bib.html#id2" title="Simo Sarkka. Bayesian Filtering and Smoothing. Cambridge University Press, 2013. URL: https://users.aalto.fi/~ssarkka/pub/cup_book_online_20131111.pdf.">Sar13</a>]</span>.</p>
+<p>For more details, see
+<a class="reference internal" href="hmm/index.html#ch-hmm"><span class="std std-ref">Discrete SSMs (Hidden Markov Models)</span></a> and  <span id="id1">[<a class="reference internal" href="../bib.html#id2" title="Simo Sarkka. Bayesian Filtering and Smoothing. Cambridge University Press, 2013. URL: https://users.aalto.fi/~ssarkka/pub/cup_book_online_20131111.pdf.">Sar13</a>]</span>.</p>
 <div class="section" id="what-are-state-space-models">
 <h2>What are state space models?<a class="headerlink" href="#what-are-state-space-models" title="Permalink to this headline">¶</a></h2>
 </div>
@@ -363,7 +366,7 @@ and  <span id="id1">[<a class="reference internal" href="../bib.html#id2" title=
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/intro-chap_2_0.png" src="../_images/intro-chap_2_0.png" />
+<img alt="../_images/intro_2_0.png" src="../_images/intro_2_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -389,7 +392,9 @@ and  <span id="id1">[<a class="reference internal" href="../bib.html#id2" title=
 </div>
 <div class="section" id="images">
 <h2>Images<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h2>
-<p><img alt="" src="https://myst-parser.readthedocs.io/en/latest/_static/logo-wide.svg" /></p>
+<!---
+![](https://myst-parser.readthedocs.io/en/latest/_static/logo-wide.svg)
+--->
 <p><img src="https://github.com/probml/probml-notebooks/blob/main/images/cat_dog.jpg"
 style="height:200"></p>
 <div class="figure align-default" id="cat-dog">
@@ -450,10 +455,10 @@ $<span class="math notranslate nohighlight">\(
             <p class="prev-next-title">State Space Models: A Modern Approach</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="hmm-chap/index.html" title="next page">
+    <a class='right-next' id="next-link" href="hmm/index.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">HMMs index</p>
+        <p class="prev-next-title">Discrete SSMs (Hidden Markov Models)</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

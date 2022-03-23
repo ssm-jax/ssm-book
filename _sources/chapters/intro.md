@@ -24,10 +24,8 @@ Specifically
 - bar.
 - baz
 
-For more details, see [](ch:hmm)
-and [HMM chapter](ch:hmm)
-and {ref}`ch:hmm`
-and  {cite}`Sarkka13`.
+For more details, see 
+{ref}`ch:hmm` and  {cite}`Sarkka13`.
 
 
 ## What are state space models?
@@ -76,19 +74,21 @@ print(jax.devices())
 ## Images
 
 
+<!---
 ![](https://myst-parser.readthedocs.io/en/latest/_static/logo-wide.svg)
+--->
 
 <img src="https://github.com/probml/probml-notebooks/blob/main/images/cat_dog.jpg"
 style="height:200">
 
-```{figure} /images/cat_dog.jpg
+```{figure} /figures/cat_dog.jpg
 :scale: 50%
 :name: cat_dog
 
 A photo of a cat and a dog.
 ```
 
-```{figure} /images/cat_dog.jpg
+```{figure} /figures/cat_dog.jpg
 :scale: 50%
 :name: cat_dog2
 

@@ -1,4 +1,4 @@
-# My Bibliography
+# Bibliography
 
 
 ```{bibliography}

@@ -2,11 +2,14 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-book
-root: intro
+root: root
 chapters:
-- file: mymarkdownfile
 - file: kevin
-- file: markdown
-- file: notebooks
-- file: markdown-notebooks
+- file: chapters/intro
+- file: chapters/hmm/index
+  sections:
+  - file: chapters/hmm/intro
+  - file: chapters/hmm/casino
+  - file: chapters/hmm/hmm_discrete_numpy
+- file: chapters/lgssm
 - file: bib

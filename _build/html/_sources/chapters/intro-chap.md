@@ -5,27 +5,36 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
-    format_version: 0.13
-    jupytext_version: 1.11.5
 kernelspec:
   display_name: Python 3
   language: python
   name: python3
 ---
 
+(ch:intro)=
 # Introduction
 
 
 
 
 In this chapter, we do blah.
-For more details, see  [](ch:hmm)
+Specifically
+
+- foo
+- bar.
+- baz
+
+For more details, see [](ch:hmm)
+and [HMM chapter](ch:hmm)
+and {ref}`ch:hmm`
 and  {cite}`Sarkka13`.
 
 
 ## What are state space models?
 
 ## Python
+
+We\'re now ready to start coding.
 
 ```{code-cell}
 from matplotlib import rcParams, cycler
@@ -55,22 +64,51 @@ lines = ax.plot(data)
 ax.legend(custom_lines, ['Cold', 'Medium', 'Hot']);
 ```
 
+```{code-cell}
+import matplotlib.pyplot as plt
+import numpy as np
+import jax
+import jax.numpy as jnp
+
+print(jax.devices())
+```
+
 ## Images
 
-[](https://myst-parser.readthedocs.io/en/latest/_static/logo-wide.svg)
 
 ![](https://myst-parser.readthedocs.io/en/latest/_static/logo-wide.svg)
 
 <img src="https://github.com/probml/probml-notebooks/blob/main/images/cat_dog.jpg"
 style="height:200">
 
+```{figure} /images/cat_dog.jpg
+:scale: 50%
+:name: cat_dog
+
+A photo of a cat and a dog.
+```
+
+```{figure} /images/cat_dog.jpg
+:scale: 50%
+:name: cat_dog2
+
+Another photo of a cat and a dog.
+```
+
+In {numref}`Figure %s <cat_dog>` we show catdog.
+In {numref}`Figure %s <cat_dog2>` we show catdog2, its twin.
+
 
 ## Math
 
-$$
-a x^2 + bx+ c = 0
-$$
+We have $E= mc^2$, and also
 
+```{math}
+:label: foo
+a x^2 + bx+ c = 0
+```
+
+From {eq}`foo`, it follows that
 $$
 \begin{align}
 0 &= a x^2 + bx+ c \\

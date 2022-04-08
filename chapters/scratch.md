@@ -12,9 +12,7 @@ kernelspec:
 ---
 
 (ch:intro)=
-# Introduction
-
-
+# Scratchpad
 
 
 In this chapter, we do blah.
@@ -27,8 +25,6 @@ Specifically
 For more details, see 
 {ref}`ch:hmm` and  {cite}`Sarkka13`.
 
-
-## What are state space models?
 
 ## Python
 

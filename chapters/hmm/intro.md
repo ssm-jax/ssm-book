@@ -1,3 +1,0 @@
-# What are HMMs?
-
-Hidden Markov Models are ...

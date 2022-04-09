@@ -52,6 +52,7 @@ chapters:
   - file: chapters/learning/mcmc
 - file: chapters/tracking/tracking_index  
 - file: chapters/ensemble/ensemble_index
+- file: chapters/bnp/bnp_index
 - file: chapters/changepoint/changepoint_index
 - file: chapters/timeseries/timeseries_index
 - file: chapters/gp/gp_index

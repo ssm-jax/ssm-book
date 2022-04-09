@@ -96,13 +96,13 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="chapters/intro.html">
-   Introduction
+  <a class="reference internal" href="chapters/scratch.html">
+   Scratchpad
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="chapters/hmm/index.html">
-   Discrete SSMs (Hidden Markov Models)
+  <a class="reference internal" href="chapters/ssm/index.html">
+   Introduction
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
@@ -111,13 +111,60 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="chapters/hmm/intro.html">
-     What are HMMs?
+    <a class="reference internal" href="chapters/ssm/hmm.html">
+     Hidden Markov Models
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="chapters/hmm/casino.html">
-     The occasionally dishonest casino
+    <a class="reference internal" href="chapters/ssm/lgssm.html">
+     Linear Gaussian SSMs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/ssm/nonlin.html">
+     Non-Linear Gaussian SSMs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/ssm/nongauss.html">
+     Non-Gaussian SSMs
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="chapters/hmm/hmm_index.html">
+   Inference in discrete SSMs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/hmm/hmm_filter.html">
+     HMM filtering (forwards algorithm)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/hmm/hmm_smoother.html">
+     HMM smoothing (forwards-backwards algorithm)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/hmm/hmm_viterbi.html">
+     Viterbi algorithm
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/hmm/hmm_parallel.html">
+     Parallel HMM  smoothing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/hmm/hmm_sampling.html">
+     Forwards-filtering backwards-sampling algorithm
     </a>
    </li>
    <li class="toctree-l2">
@@ -127,9 +174,68 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="chapters/lgssm/lgssm_index.html">
+   Inference in linear-Gaussian SSMs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/lgssm/kalman_filter.html">
+     Kalman filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/lgssm/kalman_smoother.html">
+     Kalman (RTS) smoother
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/lgssm/kalman_parallel.html">
+     Parallel Kalman Smoother
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/lgssm/kalman_sampling.html">
+     Forwards-filtering backwards sampling
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="chapters/extended/extended_index.html">
+   Linearization methods for non-linear Gaussian SSMs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/extended/extended_filter.html">
+     Extended Kalman filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/extended/extended_smoother.html">
+     Extended Kalman smoother
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/extended/extended_parallel.html">
+     Parallel extended Kalman smoothing
+    </a>
+   </li>
+  </ul>
+ </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapters/lgssm.html">
-   Linear-Gaussian SSMs
+  <a class="reference internal" href="chapters/ensemble/ensemble_index.html">
+   Ensemble Kalman filter
   </a>
  </li>
  <li class="toctree-l1">
@@ -240,7 +346,7 @@ const thebe_selector_output = ".output, .cell_output"
     <footer class="footer">
   <p>
     
-      By Kevin Murphy, Adrien Corenflos, Scott Linderman, Emmanuel Johnson<br/>
+      By Kevin Murphy, Scott Linderman, et al.<br/>
     
         &copy; Copyright 2021.<br/>
   </p>

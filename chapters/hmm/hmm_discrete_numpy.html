@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>Implementing discrete HMMs in Numpy &#8212; State Space Models: A Modern Approach</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
@@ -56,8 +57,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Linear-Gaussian SSMs" href="../lgssm.html" />
-    <link rel="prev" title="The occasionally dishonest casino" href="casino.html" />
+    <link rel="next" title="Inference in linear-Gaussian SSMs" href="../lgssm/index.html" />
+    <link rel="prev" title="Inference in discrete SSMs" href="index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -98,30 +99,42 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../intro.html">
-   Introduction
+  <a class="reference internal" href="../scratch.html">
+   Scratchpad
   </a>
  </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="index.html">
-   Discrete SSMs (Hidden Markov Models)
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ssm/index.html">
+   Introduction
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ssm/hmm.html">
+     Hidden Markov Models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ssm/lgssm.html">
+     Linear Gaussian SSMs
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="index.html">
+   Inference in discrete SSMs
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
   <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="intro.html">
-     What are HMMs?
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="casino.html">
-     The occasionally dishonest casino
-    </a>
-   </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
      Implementing discrete HMMs in Numpy
@@ -129,10 +142,22 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../lgssm.html">
-   Linear-Gaussian SSMs
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../lgssm/index.html">
+   Inference in linear-Gaussian SSMs
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lgssm/kalman_filter.html">
+     Kalman filtering
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../bib.html">
@@ -261,9 +286,21 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="implementing-discrete-hmms-in-numpy">
+  <section class="tex2jax_ignore mathjax_ignore" id="implementing-discrete-hmms-in-numpy">
 <h1>Implementing discrete HMMs in Numpy<a class="headerlink" href="#implementing-discrete-hmms-in-numpy" title="Permalink to this headline">¶</a></h1>
 <p>We start with a simple numpy implementation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>42
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install necessary libraries</span>
@@ -280,6 +317,12 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="k">except</span><span class="p">:</span>
     <span class="o">%</span><span class="k">pip</span> install git+https://github.com/probml/jsl
     <span class="kn">import</span> <span class="nn">jsl</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">rich</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install rich
+    <span class="kn">import</span> <span class="nn">rich</span>
 </pre></div>
 </div>
 </div>
@@ -293,18 +336,20 @@ const thebe_selector_output = ".output, .cell_output"
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
 
-<span class="kn">import</span> <span class="nn">inspect</span>
+
 <span class="kn">import</span> <span class="nn">jax</span>
 <span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">jnp</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">inspect</span> <span class="k">as</span> <span class="nn">py_inspect</span>
+
+<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="n">inspect</span> <span class="k">as</span> <span class="n">r_inspect</span>
+<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="nb">print</span> <span class="k">as</span> <span class="n">r_print</span>
+
 <span class="k">def</span> <span class="nf">print_source</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;source code of &#39;</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
-    <span class="c1">#txt = inspect.getsource(fname)</span>
-    <span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">line_num</span><span class="p">)</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getsourcelines</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
+    <span class="n">r_print</span><span class="p">(</span><span class="n">py_inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -328,10 +373,9 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>source code of  &lt;function normalize_numpy at 0x7fbf2893f0d0&gt;
-def normalize_numpy(u, axis=0, eps=1e-15):
-    &#39;&#39;&#39;
-    Normalizes the values within the axis in a way that they sum up to 1.
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">def normalize_numpy<span style="font-weight: bold">(</span>u, <span style="color: #808000; text-decoration-color: #808000">axis</span>=<span style="color: #000080; text-decoration-color: #000080; font-weight: bold">0</span>, <span style="color: #808000; text-decoration-color: #808000">eps</span>=<span style="color: #000080; text-decoration-color: #000080; font-weight: bold">1e-15</span><span style="font-weight: bold">)</span>:
+    <span style="color: #008000; text-decoration-color: #008000">''</span>'
+    Normalizes the values within the axis in a way that they sum up to <span style="color: #000080; text-decoration-color: #000080; font-weight: bold">1</span>.
 
     Parameters
     ----------
@@ -345,22 +389,24 @@ def normalize_numpy(u, axis=0, eps=1e-15):
     * array
         Normalized version of the given matrix
 
-    * array(seq_len, n_hidden) :
+    * array<span style="font-weight: bold">(</span>seq_len, n_hidden<span style="font-weight: bold">)</span> :
         The values of the normalizer
-    &#39;&#39;&#39;
-    u = np.where(u == 0, 0, np.where(u &lt; eps, eps, u))
-    c = u.sum(axis=axis)
-    c = np.where(c == 0, 1, c)
-    return u / c, c
-</pre></div>
+    <span style="color: #008000; text-decoration-color: #008000">''</span>'
+    u = np.where<span style="font-weight: bold">(</span>u == <span style="color: #000080; text-decoration-color: #000080; font-weight: bold">0</span>, <span style="color: #000080; text-decoration-color: #000080; font-weight: bold">0</span>, np.where<span style="font-weight: bold">(</span>u &lt; eps, eps, u<span style="font-weight: bold">))</span>
+    c = u.sum<span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">axis</span>=<span style="color: #800080; text-decoration-color: #800080">axis</span><span style="font-weight: bold">)</span>
+    c = np.where<span style="font-weight: bold">(</span>c == <span style="color: #000080; text-decoration-color: #000080; font-weight: bold">0</span>, <span style="color: #000080; text-decoration-color: #000080; font-weight: bold">1</span>, c<span style="font-weight: bold">)</span>
+    return u <span style="color: #800080; text-decoration-color: #800080">/</span> c, c
+
+</pre>
+</div></div>
 </div>
-</div>
-</div>
-<p>We first create the “Ocassionally dishonest casino” model from <span id="id1">[<a class="reference internal" href="../../bib.html#id4" title="R. Durbin, S. Eddy, A. Krogh, and G. Mitchison. Biological Sequence Analysis: Probabilistic Models of Proteins and Nucleic Acids. Cambridge University Press, 1998.">DEKM98</a>]</span>.</p>
-<div class="figure align-default" id="casino">
+<p>We first create the “Ocassionally dishonest casino” model from <span id="pending-xref-1">[<a class="reference internal" href="../../bib.html#citation-3" title="R. Durbin, S. Eddy, A. Krogh, and G. Mitchison. Biological Sequence Analysis: Probabilistic Models of Proteins and Nucleic Acids. Cambridge University Press, 1998.">DEKM98</a>]</span>.</p>
+<figure class="align-default" id="casino">
 <a class="reference internal image-reference" href="../../_images/casino.png"><img alt="../../_images/casino.png" src="../../_images/casino.png" style="width: 208.5px; height: 142.5px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of the casino HMM.</span><a class="headerlink" href="#casino" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of the casino HMM.</span><a class="headerlink" href="#casino" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># state transition matrix</span>
@@ -418,9 +464,8 @@ def normalize_numpy(u, axis=0, eps=1e-15):
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>source code of  &lt;function hmm_sample_numpy at 0x7fbf2a1ceee0&gt;
-def hmm_sample_numpy(params, seq_len, random_state=0):
-    &#39;&#39;&#39;
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">def hmm_sample_numpy<span style="font-weight: bold">(</span>params, seq_len, <span style="color: #808000; text-decoration-color: #808000">random_state</span>=<span style="color: #000080; text-decoration-color: #000080; font-weight: bold">0</span><span style="font-weight: bold">)</span>:
+    <span style="color: #008000; text-decoration-color: #008000">''</span>'
     Samples an observation of given length according to the defined
     hidden markov model and gives the sequence of the hidden states
     as well as the observation.
@@ -430,7 +475,7 @@ def hmm_sample_numpy(params, seq_len, random_state=0):
     params : HMMNumpy
         Hidden Markov Model
 
-    seq_len: array(seq_len)
+    seq_len: array<span style="font-weight: bold">(</span>seq_len<span style="font-weight: bold">)</span>
         The length of the observation sequence
 
     random_state : int
@@ -438,39 +483,39 @@ def hmm_sample_numpy(params, seq_len, random_state=0):
 
     Returns
     -------
-    * array(seq_len,)
+    * array<span style="font-weight: bold">(</span>seq_len,<span style="font-weight: bold">)</span>
         Hidden state sequence
 
-    * array(seq_len,) :
+    * array<span style="font-weight: bold">(</span>seq_len,<span style="font-weight: bold">)</span> :
         Observation sequence
-    &#39;&#39;&#39;
+    <span style="color: #008000; text-decoration-color: #008000">''</span>'
 
-    def sample_one_step_(hist, a, p):
-        x_t = np.random.choice(a=a, p=p)
-        return np.append(hist, [x_t]), x_t
+    def sample_one_step_<span style="font-weight: bold">(</span>hist, a, p<span style="font-weight: bold">)</span>:
+        x_t = np.random.choice<span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">a</span>=<span style="color: #800080; text-decoration-color: #800080">a</span>, <span style="color: #808000; text-decoration-color: #808000">p</span>=<span style="color: #800080; text-decoration-color: #800080">p</span><span style="font-weight: bold">)</span>
+        return np.append<span style="font-weight: bold">(</span>hist, <span style="font-weight: bold">)</span>, x_t
 
-    seed(random_state)
+    seed<span style="font-weight: bold">(</span>random_state<span style="font-weight: bold">)</span>
 
     trans_mat, obs_mat, init_dist = params.trans_mat, params.obs_mat, params.init_dist
     n_states, n_obs = obs_mat.shape
 
-    state_seq = np.array([], dtype=int)
-    obs_seq = np.array([], dtype=int)
+    state_seq = np.array<span style="font-weight: bold">([]</span>, <span style="color: #808000; text-decoration-color: #808000">dtype</span>=<span style="color: #800080; text-decoration-color: #800080">int</span><span style="font-weight: bold">)</span>
+    obs_seq = np.array<span style="font-weight: bold">([]</span>, <span style="color: #808000; text-decoration-color: #808000">dtype</span>=<span style="color: #800080; text-decoration-color: #800080">int</span><span style="font-weight: bold">)</span>
 
-    latent_states = np.arange(n_states)
-    obs_states = np.arange(n_obs)
+    latent_states = np.arange<span style="font-weight: bold">(</span>n_states<span style="font-weight: bold">)</span>
+    obs_states = np.arange<span style="font-weight: bold">(</span>n_obs<span style="font-weight: bold">)</span>
 
-    state_seq, zt = sample_one_step_(state_seq, latent_states, init_dist)
-    obs_seq, xt = sample_one_step_(obs_seq, obs_states, obs_mat[zt])
+    state_seq, zt = sample_one_step_<span style="font-weight: bold">(</span>state_seq, latent_states, init_dist<span style="font-weight: bold">)</span>
+    obs_seq, xt = sample_one_step_<span style="font-weight: bold">(</span>obs_seq, obs_states, obs_mat<span style="font-weight: bold">)</span>
 
-    for _ in range(1, seq_len):
-        state_seq, zt = sample_one_step_(state_seq, latent_states, trans_mat[zt])
-        obs_seq, xt = sample_one_step_(obs_seq, obs_states, obs_mat[zt])
+    for _ in range<span style="font-weight: bold">(</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">1</span>, seq_len<span style="font-weight: bold">)</span>:
+        state_seq, zt = sample_one_step_<span style="font-weight: bold">(</span>state_seq, latent_states, trans_mat<span style="font-weight: bold">)</span>
+        obs_seq, xt = sample_one_step_<span style="font-weight: bold">(</span>obs_seq, obs_states, obs_mat<span style="font-weight: bold">)</span>
 
     return state_seq, obs_seq
-</pre></div>
-</div>
-</div>
+
+</pre>
+</div></div>
 </div>
 <p>Let’s sample from this model.</p>
 <div class="cell docutils container">
@@ -489,7 +534,7 @@ def hmm_sample_numpy(params, seq_len, random_state=0):
 </div>
 </div>
 </div>
-</div>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -516,17 +561,17 @@ def hmm_sample_numpy(params, seq_len, random_state=0):
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="casino.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="index.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">The occasionally dishonest casino</p>
+            <p class="prev-next-title">Inference in discrete SSMs</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../lgssm.html" title="next page">
+    <a class='right-next' id="next-link" href="../lgssm/index.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Linear-Gaussian SSMs</p>
+        <p class="prev-next-title">Inference in linear-Gaussian SSMs</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
@@ -537,7 +582,7 @@ def hmm_sample_numpy(params, seq_len, random_state=0):
     <footer class="footer">
   <p>
     
-      By Kevin Murphy, Adrien Corenflos, Scott Linderman, Emmanuel Johnson<br/>
+      By Kevin Murphy, Scott Linderman, et al.<br/>
     
         &copy; Copyright 2021.<br/>
   </p>

@@ -4,8 +4,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Discrete SSMs (Hidden Markov Models) &#8212; State Space Models: A Modern Approach</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Inference in discrete SSMs &#8212; State Space Models: A Modern Approach</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -56,8 +57,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="What are HMMs?" href="intro.html" />
-    <link rel="prev" title="Introduction" href="../intro.html" />
+    <link rel="next" title="Implementing discrete HMMs in Numpy" href="hmm_discrete_numpy.html" />
+    <link rel="prev" title="Linear Gaussian SSMs" href="../ssm/lgssm.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -98,30 +99,42 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../intro.html">
-   Introduction
+  <a class="reference internal" href="../scratch.html">
+   Scratchpad
   </a>
  </li>
- <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
-   Discrete SSMs (Hidden Markov Models)
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ssm/index.html">
+   Introduction
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="intro.html">
-     What are HMMs?
+    <a class="reference internal" href="../ssm/hmm.html">
+     Hidden Markov Models
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="casino.html">
-     The occasionally dishonest casino
+    <a class="reference internal" href="../ssm/lgssm.html">
+     Linear Gaussian SSMs
     </a>
    </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
+   Inference in discrete SSMs
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="hmm_discrete_numpy.html">
      Implementing discrete HMMs in Numpy
@@ -129,10 +142,22 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../lgssm.html">
-   Linear-Gaussian SSMs
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../lgssm/index.html">
+   Inference in linear-Gaussian SSMs
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lgssm/kalman_filter.html">
+     Kalman filtering
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../bib.html">
@@ -221,6 +246,68 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-are-hmms">
+   What are HMMs?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-with-discrete-observations-casino-hmm">
+     Example with discrete observations: casino  HMM
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-with-gaussian-observations-lillypad-hmm">
+     Example with Gaussian observations: lillypad  HMM
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#forwards-algorithm">
+   Forwards algorithm
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#backwards-algorithm">
+   Backwards algorithm
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#backwards-smoothing-variant">
+     Backwards smoothing variant
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#backwards-filtering-variant">
+     Backwards filtering variant
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#viterbi-algorithm">
+   Viterbi algorithm
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#forwards-filtering-backwards-sampling">
+   Forwards-filtering, backwards-sampling
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parallel-scan-algorithms">
+   Parallel scan algorithms
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -228,24 +315,126 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Discrete SSMs (Hidden Markov Models)</h1>
+                <h1>Inference in discrete SSMs</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-are-hmms">
+   What are HMMs?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-with-discrete-observations-casino-hmm">
+     Example with discrete observations: casino  HMM
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-with-gaussian-observations-lillypad-hmm">
+     Example with Gaussian observations: lillypad  HMM
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#forwards-algorithm">
+   Forwards algorithm
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#backwards-algorithm">
+   Backwards algorithm
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#backwards-smoothing-variant">
+     Backwards smoothing variant
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#backwards-filtering-variant">
+     Backwards filtering variant
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#viterbi-algorithm">
+   Viterbi algorithm
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#forwards-filtering-backwards-sampling">
+   Forwards-filtering, backwards-sampling
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parallel-scan-algorithms">
+   Parallel scan algorithms
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="discrete-ssms-hidden-markov-models">
-<span id="ch-hmm"></span><h1>Discrete SSMs (Hidden Markov Models)<a class="headerlink" href="#discrete-ssms-hidden-markov-models" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="inference-in-discrete-ssms">
+<span id="ch-hmm"></span><h1>Inference in discrete SSMs<a class="headerlink" href="#inference-in-discrete-ssms" title="Permalink to this headline">¶</a></h1>
 <p>This chapter covers HMMs.
 See sections below.</p>
 <div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="hmm_discrete_numpy.html">Implementing discrete HMMs in Numpy</a></li>
+</ul>
 </div>
-</div>
+<section id="what-are-hmms">
+<h2>What are HMMs?<a class="headerlink" href="#what-are-hmms" title="Permalink to this headline">¶</a></h2>
+<section id="example-with-discrete-observations-casino-hmm">
+<span id="sec-casino"></span><h3>Example with discrete observations: casino  HMM<a class="headerlink" href="#example-with-discrete-observations-casino-hmm" title="Permalink to this headline">¶</a></h3>
+<p>See <span id="pending-xref-1">[<a class="reference internal" href="../../bib.html#citation-3" title="R. Durbin, S. Eddy, A. Krogh, and G. Mitchison. Biological Sequence Analysis: Probabilistic Models of Proteins and Nucleic Acids. Cambridge University Press, 1998.">DEKM98</a>]</span>.</p>
+<figure class="align-default" id="casino">
+<a class="reference internal image-reference" href="../../_images/casino.png"><img alt="../../_images/casino.png" src="../../_images/casino.png" style="width: 208.5px; height: 142.5px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Illustration of the casino HMM.</span><a class="headerlink" href="#casino" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="example-with-gaussian-observations-lillypad-hmm">
+<h3>Example with Gaussian observations: lillypad  HMM<a class="headerlink" href="#example-with-gaussian-observations-lillypad-hmm" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="forwards-algorithm">
+<h2>Forwards algorithm<a class="headerlink" href="#forwards-algorithm" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="backwards-algorithm">
+<h2>Backwards algorithm<a class="headerlink" href="#backwards-algorithm" title="Permalink to this headline">¶</a></h2>
+<section id="backwards-smoothing-variant">
+<h3>Backwards smoothing variant<a class="headerlink" href="#backwards-smoothing-variant" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="backwards-filtering-variant">
+<h3>Backwards filtering variant<a class="headerlink" href="#backwards-filtering-variant" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="viterbi-algorithm">
+<h2>Viterbi algorithm<a class="headerlink" href="#viterbi-algorithm" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="forwards-filtering-backwards-sampling">
+<h2>Forwards-filtering, backwards-sampling<a class="headerlink" href="#forwards-filtering-backwards-sampling" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="parallel-scan-algorithms">
+<h2>Parallel scan algorithms<a class="headerlink" href="#parallel-scan-algorithms" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -272,17 +461,17 @@ See sections below.</p>
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="../intro.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../ssm/lgssm.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Introduction</p>
+            <p class="prev-next-title">Linear Gaussian SSMs</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="intro.html" title="next page">
+    <a class='right-next' id="next-link" href="hmm_discrete_numpy.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">What are HMMs?</p>
+        <p class="prev-next-title">Implementing discrete HMMs in Numpy</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
@@ -293,7 +482,7 @@ See sections below.</p>
     <footer class="footer">
   <p>
     
-      By Kevin Murphy, Adrien Corenflos, Scott Linderman, Emmanuel Johnson<br/>
+      By Kevin Murphy, Scott Linderman, et al.<br/>
     
         &copy; Copyright 2021.<br/>
   </p>

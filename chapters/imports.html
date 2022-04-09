@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>&lt;no title&gt; &#8212; State Space Models: A Modern Approach</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
@@ -96,13 +97,13 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="intro.html">
-   Introduction
+  <a class="reference internal" href="scratch.html">
+   Scratchpad
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="hmm/index.html">
-   Discrete SSMs (Hidden Markov Models)
+  <a class="reference internal" href="ssm/index.html">
+   Introduction
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
@@ -111,15 +112,27 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="hmm/intro.html">
-     What are HMMs?
+    <a class="reference internal" href="ssm/hmm.html">
+     Boilerplate
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="hmm/casino.html">
-     The occasionally dishonest casino
+    <a class="reference internal" href="ssm/lgssm.html">
+     Boilerplate
     </a>
    </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="hmm/index.html">
+   Inference in discrete SSMs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="hmm/hmm_discrete_numpy.html">
      Implementing discrete HMMs in Numpy
@@ -127,10 +140,22 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lgssm.html">
-   Linear-Gaussian SSMs
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="lgssm/index.html">
+   Inference in linear-Gaussian SSMs
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lgssm/kalman_filter.html">
+     Kalman filtering
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../bib.html">
@@ -325,6 +350,13 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="k">except</span><span class="p">:</span>
     <span class="o">%</span><span class="k">pip</span> install git+https://github.com/probml/jsl
     <span class="kn">import</span> <span class="nn">jsl</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">rich</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install rich
+    <span class="kn">import</span> <span class="nn">rich</span>
+    
 </pre></div>
 </div>
 </div>
@@ -346,13 +378,28 @@ const thebe_selector_output = ".output, .cell_output"
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
 
-<span class="kn">import</span> <span class="nn">inspect</span>
+
 <span class="kn">import</span> <span class="nn">jax</span>
 <span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">jnp</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">inspect</span> <span class="k">as</span> <span class="nn">py_inspect</span>
+
+<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="n">inspect</span> <span class="k">as</span> <span class="n">r_inspect</span>
+<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="nb">print</span> <span class="k">as</span> <span class="n">r_print</span>
+
 <span class="k">def</span> <span class="nf">print_source</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+    <span class="n">r_print</span><span class="p">(</span><span class="n">py_inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>   
+<span class="k">def</span> <span class="nf">print_source_old</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;source code of &#39;</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
     <span class="c1">#txt = inspect.getsource(fname)</span>
     <span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">line_num</span><span class="p">)</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getsourcelines</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
@@ -395,7 +442,7 @@ const thebe_selector_output = ".output, .cell_output"
     <footer class="footer">
   <p>
     
-      By Kevin Murphy, Adrien Corenflos, Scott Linderman, Emmanuel Johnson<br/>
+      By Kevin Murphy, Scott Linderman, et al.<br/>
     
         &copy; Copyright 2021.<br/>
   </p>

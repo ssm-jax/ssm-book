@@ -22,8 +22,8 @@
       
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -33,27 +33,24 @@
     
   <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script >let toggleHintShow = 'Click to show';</script>
-    <script >let toggleHintHide = 'Click to hide';</script>
-    <script >let toggleOpenOnPrint = 'true';</script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script >const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -96,13 +93,13 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="intro.html">
-   Introduction
+  <a class="reference internal" href="scratch.html">
+   Scratchpad
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="hmm/index.html">
-   Discrete SSMs (Hidden Markov Models)
+  <a class="reference internal" href="ssm/ssm_index.html">
+   Introduction
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
@@ -111,25 +108,260 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="hmm/intro.html">
-     What are HMMs?
+    <a class="reference internal" href="ssm/hmm.html">
+     Hidden Markov Models
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="hmm/casino.html">
-     The occasionally dishonest casino
+    <a class="reference internal" href="ssm/hsmm.html">
+     Hidden Semi-Markov Models
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="hmm/hmm_discrete_numpy.html">
-     Implementing discrete HMMs in Numpy
+    <a class="reference internal" href="ssm/lgssm.html">
+     Linear Gaussian SSMs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="ssm/nonlin.html">
+     Non-Linear Gaussian SSMs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="ssm/nongauss.html">
+     Non-Gaussian SSMs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="ssm/switching.html">
+     Switching SSMs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="ssm/deep.html">
+     Deep SSMs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="ssm/rnn.html">
+     Recurrent Neural Networks
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="hmm/hmm_index.html">
+   Inference in discrete SSMs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="hmm/hmm_filter.html">
+     HMM filtering (forwards algorithm)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="hmm/hmm_smoother.html">
+     HMM smoothing (forwards-backwards algorithm)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="hmm/hmm_viterbi.html">
+     Viterbi algorithm
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="hmm/hmm_parallel.html">
+     Parallel HMM  smoothing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="hmm/hmm_sampling.html">
+     Forwards-filtering backwards-sampling algorithm
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="lgssm/lgssm_index.html">
+   Inference in linear-Gaussian SSMs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lgssm/kalman_filter.html">
+     Kalman filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lgssm/kalman_smoother.html">
+     Kalman (RTS) smoother
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lgssm/kalman_parallel.html">
+     Parallel Kalman Smoother
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lgssm/kalman_sampling.html">
+     Forwards-filtering backwards sampling
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="extended/extended_index.html">
+   Linearization methods for non-linear Gaussian SSMs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="extended/extended_filter.html">
+     Extended Kalman filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="extended/extended_smoother.html">
+     Extended Kalman smoother
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="extended/extended_parallel.html">
+     Parallel extended Kalman smoothing
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="unscented/unscented_index.html">
+   Linearization methods for non-linear Gaussian SSMs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="unscented/unscented_filter.html">
+     Unscented filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="unscented/unscented_smoother.html">
+     Unscented smoothing
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="lgssm.html">
-   Linear-Gaussian SSMs
+  <a class="reference internal" href="quadrature/quadrature_index.html">
+   Quadrature and cubature methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="postlin/postlin_index.html">
+   Posterior linearization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="adf/adf_index.html">
+   Assumed Density Filtering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="vi/vi_index.html">
+   Variational inference
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="pf/pf_index.html">
+   Particle filtering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="smc/smc_index.html">
+   Sequential Monte Carlo
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="learning/learning_index.html">
+   Offline parameter estimation (learning)
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="learning/em.html">
+     Expectation Maximization (EM)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="learning/sgd.html">
+     Stochastic Gradient Descent (SGD)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="learning/vb.html">
+     Variational Bayes (VB)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="learning/mcmc.html">
+     Markov Chain Monte Carlo (MCMC)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tracking/tracking_index.html">
+   Multi-target tracking
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ensemble/ensemble_index.html">
+   Data assimilation using Ensemble Kalman filter
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="changepoint/changepoint_index.html">
+   Changepoint detection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="timeseries/timeseries_index.html">
+   Timeseries forecasting
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="gp/gp_index.html">
+   Markovian Gaussian processes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ode/ode_index.html">
+   Differential equations and SSMs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="control/control_index.html">
+   Optimal control
   </a>
  </li>
  <li class="toctree-l1">
@@ -325,6 +557,13 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="k">except</span><span class="p">:</span>
     <span class="o">%</span><span class="k">pip</span> install git+https://github.com/probml/jsl
     <span class="kn">import</span> <span class="nn">jsl</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">rich</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install rich
+    <span class="kn">import</span> <span class="nn">rich</span>
+    
 </pre></div>
 </div>
 </div>
@@ -346,13 +585,28 @@ const thebe_selector_output = ".output, .cell_output"
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
 
-<span class="kn">import</span> <span class="nn">inspect</span>
+
 <span class="kn">import</span> <span class="nn">jax</span>
 <span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">jnp</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">inspect</span> <span class="k">as</span> <span class="nn">py_inspect</span>
+
+<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="n">inspect</span> <span class="k">as</span> <span class="n">r_inspect</span>
+<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="nb">print</span> <span class="k">as</span> <span class="n">r_print</span>
+
 <span class="k">def</span> <span class="nf">print_source</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+    <span class="n">r_print</span><span class="p">(</span><span class="n">py_inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>   
+<span class="k">def</span> <span class="nf">print_source_old</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;source code of &#39;</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
     <span class="c1">#txt = inspect.getsource(fname)</span>
     <span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">line_num</span><span class="p">)</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getsourcelines</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
@@ -361,6 +615,46 @@ const thebe_selector_output = ".output, .cell_output"
 </pre></div>
 </div>
 </div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">jsl</span>
+<span class="kn">import</span> <span class="nn">jsl.hmm.hmm_numpy_lib</span> <span class="k">as</span> <span class="nn">hmm_lib_np</span>
+<span class="c1">#import jsl.hmm.hmm_lib as hmm_lib_jax</span>
+
+<span class="n">normalize</span> <span class="o">=</span> <span class="n">hmm_lib_np</span><span class="o">.</span><span class="n">normalize_numpy</span>
+<span class="n">print_source</span><span class="p">(</span><span class="n">normalize</span><span class="p">)</span>
+<span class="c1">#print_source(hmm_lib_np.normalize_numpy)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">def normalize_numpy<span style="font-weight: bold">(</span>u, <span style="color: #808000; text-decoration-color: #808000">axis</span>=<span style="color: #000080; text-decoration-color: #000080; font-weight: bold">0</span>, <span style="color: #808000; text-decoration-color: #808000">eps</span>=<span style="color: #000080; text-decoration-color: #000080; font-weight: bold">1e-15</span><span style="font-weight: bold">)</span>:
+    <span style="color: #008000; text-decoration-color: #008000">''</span>'
+    Normalizes the values within the axis in a way that they sum up to <span style="color: #000080; text-decoration-color: #000080; font-weight: bold">1</span>.
+
+    Parameters
+    ----------
+    u : array
+    axis : int
+    eps : float
+        Threshold for the alpha values
+
+    Returns
+    -------
+    * array
+        Normalized version of the given matrix
+
+    * array<span style="font-weight: bold">(</span>seq_len, n_hidden<span style="font-weight: bold">)</span> :
+        The values of the normalizer
+    <span style="color: #008000; text-decoration-color: #008000">''</span>'
+    u = np.where<span style="font-weight: bold">(</span>u == <span style="color: #000080; text-decoration-color: #000080; font-weight: bold">0</span>, <span style="color: #000080; text-decoration-color: #000080; font-weight: bold">0</span>, np.where<span style="font-weight: bold">(</span>u &lt; eps, eps, u<span style="font-weight: bold">))</span>
+    c = u.sum<span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">axis</span>=<span style="color: #800080; text-decoration-color: #800080">axis</span><span style="font-weight: bold">)</span>
+    c = np.where<span style="font-weight: bold">(</span>c == <span style="color: #000080; text-decoration-color: #000080; font-weight: bold">0</span>, <span style="color: #000080; text-decoration-color: #000080; font-weight: bold">1</span>, c<span style="font-weight: bold">)</span>
+    return u <span style="color: #800080; text-decoration-color: #800080">/</span> c, c
+
+</pre>
+</div></div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -395,7 +689,7 @@ const thebe_selector_output = ".output, .cell_output"
     <footer class="footer">
   <p>
     
-      By Kevin Murphy, Adrien Corenflos, Scott Linderman, Emmanuel Johnson<br/>
+      By Kevin Murphy, Scott Linderman, et al.<br/>
     
         &copy; Copyright 2021.<br/>
   </p>

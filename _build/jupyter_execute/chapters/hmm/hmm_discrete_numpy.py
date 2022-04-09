@@ -8,6 +8,14 @@
 # In[1]:
 
 
+print(42)
+
+
+# In[2]:
+
+
+
+
 # Install necessary libraries
 
 try:
@@ -23,8 +31,14 @@ except:
     get_ipython().run_line_magic('pip', 'install git+https://github.com/probml/jsl')
     import jsl
 
+try:
+    import rich
+except:
+    get_ipython().run_line_magic('pip', 'install rich')
+    import rich
 
-# In[2]:
+
+# In[3]:
 
 
 import abc
@@ -34,31 +48,37 @@ import itertools
 
 from typing import Any, Callable, NamedTuple, Optional, Union, Tuple
 
-import inspect
+
 import jax
 import jax.numpy as jnp
 import matplotlib.pyplot as plt
 import numpy as np
 
+import inspect
+import inspect as py_inspect
+
+from rich import inspect as r_inspect
+from rich import print as r_print
+
 def print_source(fname):
-    print('source code of ', fname)
-    #txt = inspect.getsource(fname)
-    (lines, line_num) = inspect.getsourcelines(fname)
-    for line in lines:
-        print(line.strip('\n'))
+    r_print(py_inspect.getsource(fname))
 
 
-# In[3]:
+# In[4]:
 
 
 import jsl
 import jsl.hmm.hmm_numpy_lib as hmm_lib_np
 #import jsl.hmm.hmm_lib as hmm_lib_jax
 
+normalize = hmm_lib_np.normalize_numpy
+print_source(normalize)
+#print_source(hmm_lib_np.normalize_numpy)
+
 
 # Here are some handy utility functions we have already defined.
 
-# In[4]:
+# In[5]:
 
 
 normalize = hmm_lib_np.normalize_numpy
@@ -77,7 +97,7 @@ print_source(normalize)
 # 
 # 
 
-# In[5]:
+# In[6]:
 
 
 
@@ -103,7 +123,7 @@ for i in range(nstates):
 
 # Let's bundle the parameters into a structure.
 
-# In[6]:
+# In[7]:
 
 
 
@@ -119,7 +139,7 @@ print(params_numpy)
 
 # Function to sample a single sequence of hidden states and discrete observations.
 
-# In[7]:
+# In[8]:
 
 
 hmm_sample = hmm_lib_np.hmm_sample_numpy
@@ -128,7 +148,7 @@ print_source(hmm_sample)
 
 # Let's sample from this model.
 
-# In[8]:
+# In[9]:
 
 
 seq_len = 20

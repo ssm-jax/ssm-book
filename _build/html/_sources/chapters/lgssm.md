@@ -15,6 +15,14 @@ kernelspec:
 
 # Linear-Gaussian SSMs
 
+## What are LG-SSMs?
+
 LG-SSM, aka LDS, are a workhorse...
+
+## Kalman filter
+
+## Kalman smoother
+
+
 
 

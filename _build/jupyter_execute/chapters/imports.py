@@ -53,6 +53,13 @@ except:
     get_ipython().run_line_magic('pip', 'install git+https://github.com/probml/jsl')
     import jsl
 
+try:
+    import rich
+except:
+    get_ipython().run_line_magic('pip', 'install rich')
+    import rich
+    
+
 
 # In[2]:
 
@@ -64,13 +71,28 @@ import itertools
 
 from typing import Any, Callable, NamedTuple, Optional, Union, Tuple
 
-import inspect
+
 import jax
 import jax.numpy as jnp
 import matplotlib.pyplot as plt
 import numpy as np
 
+import inspect
+import inspect as py_inspect
+
+from rich import inspect as r_inspect
+from rich import print as r_print
+
 def print_source(fname):
+    r_print(py_inspect.getsource(fname))
+
+
+# In[3]:
+
+
+
+   
+def print_source_old(fname):
     print('source code of ', fname)
     #txt = inspect.getsource(fname)
     (lines, line_num) = inspect.getsourcelines(fname)
@@ -78,9 +100,14 @@ def print_source(fname):
         print(line.strip('\n'))
 
 
-# In[ ]:
+# In[4]:
 
 
+import jsl
+import jsl.hmm.hmm_numpy_lib as hmm_lib_np
+#import jsl.hmm.hmm_lib as hmm_lib_jax
 
-   
+normalize = hmm_lib_np.normalize_numpy
+print_source(normalize)
+#print_source(hmm_lib_np.normalize_numpy)
 

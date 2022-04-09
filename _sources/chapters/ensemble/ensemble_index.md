@@ -1,10 +1,8 @@
 
 
 (ch:ensemble)=
-# Ensemble Kalman filter
+# Data assimilation using Ensemble Kalman filter
 
-```{tableofcontents}
-```
 
 {cite}`Evensen2009`, {cite}`Roth2017enkf`
 
